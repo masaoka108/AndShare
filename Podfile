@@ -6,8 +6,13 @@ target 'AndShare' do
   use_frameworks!
 
   # Pods for AndShare
+
+  # firebase
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
+
+  # calendar
+  pod 'Koyomi'
   
   target 'AndShareTests' do
     inherit! :search_paths

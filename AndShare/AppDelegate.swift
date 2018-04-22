@@ -21,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //******** Firebaseを設定
         FirebaseApp.configure()
 
-
         //******** StoryBoad使わないのでここでNavigationを設定
         let viewController: LoginViewController = LoginViewController()
         navigationController = UINavigationController(rootViewController: viewController)

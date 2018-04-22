@@ -18,6 +18,8 @@
 		CE6D6109207CF0FA004AB11E /* AndShareUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6D6108207CF0FA004AB11E /* AndShareUITests.swift */; };
 		CE6D6117207CF2AA004AB11E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE6D6116207CF2AA004AB11E /* GoogleService-Info.plist */; };
 		CE6D6119207CF89F004AB11E /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6D6118207CF89F004AB11E /* Common.swift */; };
+		CE75E7D6207DB19B008119F1 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE75E7D5207DB19B008119F1 /* SignUpViewController.swift */; };
+		CE75E7D8207DE030008119F1 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE75E7D7207DE030008119F1 /* CalendarViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,8 @@
 		CE6D610A207CF0FA004AB11E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE6D6116207CF2AA004AB11E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CE6D6118207CF89F004AB11E /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		CE75E7D5207DB19B008119F1 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		CE75E7D7207DE030008119F1 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		F9E1AEA7AD211534B472CD45 /* Pods_AndShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AndShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -139,9 +143,9 @@
 		CE6D60E7207CF0F8004AB11E /* AndShare */ = {
 			isa = PBXGroup;
 			children = (
-				CE6D611A207CF8B4004AB11E /* Common */,
 				CE6D60E8207CF0F8004AB11E /* AppDelegate.swift */,
-				CE6D60EA207CF0F8004AB11E /* LoginViewController.swift */,
+				CE6D611A207CF8B4004AB11E /* Common */,
+				CE75E7D4207DB140008119F1 /* ViewController */,
 				CE6D60EF207CF0FA004AB11E /* Assets.xcassets */,
 				CE6D60F1207CF0FA004AB11E /* LaunchScreen.storyboard */,
 				CE6D6116207CF2AA004AB11E /* GoogleService-Info.plist */,
@@ -174,6 +178,16 @@
 				CE6D6118207CF89F004AB11E /* Common.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		CE75E7D4207DB140008119F1 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				CE6D60EA207CF0F8004AB11E /* LoginViewController.swift */,
+				CE75E7D5207DB19B008119F1 /* SignUpViewController.swift */,
+				CE75E7D7207DE030008119F1 /* CalendarViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -370,12 +384,16 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-AndShare/Pods-AndShare-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/Koyomi/Koyomi.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Koyomi.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -468,8 +486,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE75E7D8207DE030008119F1 /* CalendarViewController.swift in Sources */,
 				CE6D60EB207CF0F8004AB11E /* LoginViewController.swift in Sources */,
 				CE6D6119207CF89F004AB11E /* Common.swift in Sources */,
+				CE75E7D6207DB19B008119F1 /* SignUpViewController.swift in Sources */,
 				CE6D60E9207CF0F8004AB11E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -639,10 +659,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z8Z6GJBUFD;
 				INFOPLIST_FILE = AndShare/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hiliberate.AndShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -658,10 +675,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z8Z6GJBUFD;
 				INFOPLIST_FILE = AndShare/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hiliberate.AndShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -678,11 +692,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z8Z6GJBUFD;
 				INFOPLIST_FILE = AndShareTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hiliberate.AndShareTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -700,11 +710,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z8Z6GJBUFD;
 				INFOPLIST_FILE = AndShareTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hiliberate.AndShareTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -721,11 +727,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z8Z6GJBUFD;
 				INFOPLIST_FILE = AndShareUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hiliberate.AndShareUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -742,11 +744,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z8Z6GJBUFD;
 				INFOPLIST_FILE = AndShareUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hiliberate.AndShareUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
