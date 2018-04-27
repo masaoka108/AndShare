@@ -25,6 +25,7 @@ class DateManager: NSDate {
     var currentMonthOfDates = [NSDate]() //表記する月の配列
     var selectedDate = NSDate()
     let daysPerWeek: Int = 7
+    var numberOfWeeks: Int!
     var numberOfItems: Int!
     
     
@@ -61,6 +62,7 @@ class DateManager: NSDate {
         
         let numberOfWeeks = Int((rangeOfWeeks?.count)!) //月が持つ週の数
         numberOfItems = numberOfWeeks * daysPerWeek //週の数×列の数
+        
         
 //        //        let startDateComponents = NSCalendar.current.dateComponents([.year ,.month], from:startDate)
 //        let currentDateComponents = NSCalendar.current.dateComponents([.year ,.month], from:selectedDate)
@@ -128,7 +130,7 @@ class DateManager: NSDate {
     func daysAcquisition() -> Int {
         let rangeOfWeeks = Calendar.current.range(of: .weekOfMonth, in: .month, for: firstDateOfMonth() as Date)
         
-        let numberOfWeeks = Int((rangeOfWeeks?.count)!) //月が持つ週の数
+        numberOfWeeks = Int((rangeOfWeeks?.count)!) //月が持つ週の数
         numberOfItems = numberOfWeeks * daysPerWeek //週の数×列の数
         return numberOfItems
     }

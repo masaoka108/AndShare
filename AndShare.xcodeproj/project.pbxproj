@@ -22,6 +22,8 @@
 		CE75E7D8207DE030008119F1 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE75E7D7207DE030008119F1 /* CalendarViewController.swift */; };
 		CE877218208ED9A1003B6862 /* DayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE877217208ED9A1003B6862 /* DayCollectionViewCell.swift */; };
 		CE87721A208EE81B003B6862 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE877219208EE81B003B6862 /* DateManager.swift */; };
+		CEBB28F22090BC1A0031CE1C /* BigCenterTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBB28F12090BC1A0031CE1C /* BigCenterTabBarController.swift */; };
+		CEBB28F42090C0410031CE1C /* common.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBB28F32090C0410031CE1C /* common.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +70,8 @@
 		CE75E7D7207DE030008119F1 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		CE877217208ED9A1003B6862 /* DayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCollectionViewCell.swift; sourceTree = "<group>"; };
 		CE877219208EE81B003B6862 /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
+		CEBB28F12090BC1A0031CE1C /* BigCenterTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigCenterTabBarController.swift; sourceTree = "<group>"; };
+		CEBB28F32090C0410031CE1C /* common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = common.swift; sourceTree = "<group>"; };
 		F9E1AEA7AD211534B472CD45 /* Pods_AndShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AndShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -203,9 +207,19 @@
 			path = Calendar;
 			sourceTree = "<group>";
 		};
+		CEBB28F02090BBFD0031CE1C /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				CEBB28F12090BC1A0031CE1C /* BigCenterTabBarController.swift */,
+				CEBB28F32090C0410031CE1C /* common.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		CEEC8EFA208C54C0003C8FCA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CEBB28F02090BBFD0031CE1C /* Common */,
 				CE6D60EA207CF0F8004AB11E /* LoginViewController.swift */,
 				CE75E7D5207DB19B008119F1 /* SignUpViewController.swift */,
 				CE75E7D7207DE030008119F1 /* CalendarViewController.swift */,
@@ -532,8 +546,10 @@
 				CE877218208ED9A1003B6862 /* DayCollectionViewCell.swift in Sources */,
 				CE6D60EB207CF0F8004AB11E /* LoginViewController.swift in Sources */,
 				CE6D6119207CF89F004AB11E /* Common.swift in Sources */,
+				CEBB28F22090BC1A0031CE1C /* BigCenterTabBarController.swift in Sources */,
 				CE75E7D6207DB19B008119F1 /* SignUpViewController.swift in Sources */,
 				CE6D60E9207CF0F8004AB11E /* AppDelegate.swift in Sources */,
+				CEBB28F42090C0410031CE1C /* common.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

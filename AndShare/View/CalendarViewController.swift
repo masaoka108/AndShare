@@ -13,7 +13,11 @@ import Koyomi
 
 class CalendarViewController: UIViewController, CalendarViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
+    var andShareCalendarUIView:UIView?
+    var andShareCalendarBottomLineUIView:UIView?
     var andShareCalendar:UICollectionView?
+    var menuTabBar:TabBar!
+
     
     // EventStoreを初期化
     let eventStore = EKEventStore()
@@ -38,6 +42,8 @@ class CalendarViewController: UIViewController, CalendarViewControllerDelegate, 
     let headerNextBtn:UIButton = UIButton()
 
     var headerTitle:UILabel = UILabel()
+    var calendarType:UILabel = UILabel()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +58,16 @@ class CalendarViewController: UIViewController, CalendarViewControllerDelegate, 
         //******** UI Create
         self.createUI()
         
+        
+        //******** swipe
+//        let rightSwipe = UISwipeGestureRecognizer(target: self, action: Selector(("didSwipe:")))
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(self.didSwipe(_:)))
+        rightSwipe.direction = .right
+        view.addGestureRecognizer(rightSwipe)
+        
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(self.didSwipe(_:)))
+        leftSwipe.direction = .left
+        view.addGestureRecognizer(leftSwipe)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,48 +82,76 @@ class CalendarViewController: UIViewController, CalendarViewControllerDelegate, 
     func createUI() {
 
         
-        //******** カレンダー(自作)
-        let frame = CGRect(x: 0, y : 90, width: self.view.frame.width, height: self.view.frame.height - 170)
-//        let frame = CGRect(x: 0, y : 70, width: self.view.frame.width, height: 380)
+        //******** カレンダー
+        //**** カレンダーを入れるUIView
+//        let frameUIView = CGRect(x: 0, y : 90, width: self.view.frame.width, height: self.view.frame.height - 170 + titleHeaderLine)
+        let frameUIView = CGRect(x: 0, y : 90, width: self.view.frame.width, height: self.view.frame.height)
+        andShareCalendarUIView = UIView(frame: frameUIView)
+        view.addSubview(andShareCalendarUIView!)
 
+        //**** カレンダー自体
+        let frame = CGRect(x: 0, y : 0, width: self.view.frame.width, height: self.view.frame.height - 170)
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
 //        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 //        layout.itemSize = CGSize(width: self.view.frame.width / 7 , height: (self.view.frame.height - 170) / 5)
 //        layout.minimumInteritemSpacing = 0
 //        layout.minimumLineSpacing = 1
-        
         andShareCalendar = UICollectionView(frame: frame, collectionViewLayout: layout)
 
         andShareCalendar?.dataSource = self
         andShareCalendar?.delegate = self
         andShareCalendar?.backgroundColor = cBackGround
-        andShareCalendar?.register(DayCollectionViewCell.self, forCellWithReuseIdentifier: "DayCell")    //Collection View Cell を登録。多分オリジナルのセルもここで指定できそう。
-        
-        view.addSubview(andShareCalendar!)
+        andShareCalendar?.register(DayCollectionViewCell.self, forCellWithReuseIdentifier: "DayCell")
+
+        //これでドラッグを有効にする事ができる
+//        let dragGesture = UIPanGestureRecognizer(target: self, action: #selector(self.didDrag(_:)))//******** drag
+//        andShareCalendar?.addGestureRecognizer(dragGesture)
+
+        andShareCalendarUIView?.addSubview(andShareCalendar!)
+
+        //**** 下のライン
+//        let lineBottomFrame = CGRect(x: 0, y : self.view.frame.height - 80 + titleHeaderLine, width: self.view.frame.width, height: titleHeaderLine)
+        let lineBottomFrame = CGRect(x: 0, y: self.view.frame.height - 170, width: self.view.frame.width, height: titleHeaderLine)
+        andShareCalendarBottomLineUIView = UIView(frame: lineBottomFrame)
+        andShareCalendarBottomLineUIView?.backgroundColor = cRed2
+        andShareCalendarUIView?.addSubview(andShareCalendarBottomLineUIView!)
+
 
         
-        //******** 表示月、前月、次月 ボタン
-        headerTitle = UILabel(frame: CGRect(x: 30,y: 40,width: self.view.frame.width - 20,height:40))
-        headerTitle.font = UIFont.systemFont(ofSize: 18)
-        headerTitle.text = "表示年月"
+        //******** カレンダータイプ(グループ・個人)
+        calendarType = UILabel(frame: CGRect(x: 0,y: 25,width: self.view.frame.width,height:40))
+        calendarType.font = UIFont.systemFont(ofSize: 12)
+        calendarType.text = "あなたのカレンダー"
+        calendarType.textAlignment = NSTextAlignment.center
+        view.addSubview(calendarType)
+        
+        //******** 表示月ラベル
+        headerTitle = UILabel(frame: CGRect(x: 0,y: 50,width: self.view.frame.width,height:40))
+        headerTitle.font = UIFont.systemFont(ofSize: 22)
+        headerTitle.text = changeHeaderTitle(date: selectedDate)
         headerTitle.textAlignment = NSTextAlignment.center
         view.addSubview(headerTitle)
 
-        
-        
-        headerPrevBtn.frame = CGRect(x: 0, y: 40, width: 100, height: 20)
-        headerPrevBtn.setTitle("前月", for: .normal)
-        headerPrevBtn.backgroundColor = cRed
-        headerPrevBtn.addTarget(self, action: #selector(self.PrevMonth(_:)), for: .touchUpInside)
-        headerPrevBtn.layer.cornerRadius = 10
-        view.addSubview(headerPrevBtn)
+        //******** Tabメニュー
+        menuTabBar = createUITab(width:self.view.frame.width, height:self.view.frame.height) as! TabBar
+//        menuTabBar.delegate = self
+        self.view.addSubview(menuTabBar)
 
-        headerNextBtn.frame = CGRect(x: self.view.frame.width - 100, y: 40, width: 100, height: 20)
-        headerNextBtn.setTitle("次月", for: .normal)
-        headerNextBtn.backgroundColor = cRed
-        headerNextBtn.addTarget(self, action: #selector(self.NextMonth(_:)), for: .touchUpInside)
-        headerNextBtn.layer.cornerRadius = 10
-        view.addSubview(headerNextBtn)
+        
+//        //******** 前月、次月 ボタン
+//        headerPrevBtn.frame = CGRect(x: 0, y: 40, width: 100, height: 20)
+//        headerPrevBtn.setTitle("前月", for: .normal)
+//        headerPrevBtn.backgroundColor = cRed
+//        headerPrevBtn.addTarget(self, action: #selector(self.PrevMonth(_:)), for: .touchUpInside)
+//        headerPrevBtn.layer.cornerRadius = 10
+//        view.addSubview(headerPrevBtn)
+//
+//        headerNextBtn.frame = CGRect(x: self.view.frame.width - 100, y: 40, width: 100, height: 20)
+//        headerNextBtn.setTitle("次月", for: .normal)
+//        headerNextBtn.backgroundColor = cRed
+//        headerNextBtn.addTarget(self, action: #selector(self.NextMonth(_:)), for: .touchUpInside)
+//        headerNextBtn.layer.cornerRadius = 10
+//        view.addSubview(headerNextBtn)
 
         
         
@@ -191,17 +235,25 @@ class CalendarViewController: UIViewController, CalendarViewControllerDelegate, 
         } else if (indexPath.row % 7 == 6) {
             DayCell.textLabel.textColor = UIColor.lightBlue()
         } else {
-            DayCell.textLabel.textColor = UIColor.gray
+            DayCell.textLabel.textColor = UIColor.black
         }
         //テキスト配置
         if indexPath.section == 0 {
             DayCell.textLabel.text = weekArray[indexPath.row]
             DayCell.textLabel.backgroundColor = cBackGround
 //            DayCell.backgroundColor = UIColor.clear
+            
+            //線 描画
+            DayCell.lineUIView.isHidden = false
+            
         } else {
             DayCell.textLabel.text = dateManager.conversionDateFormat(indexPath: indexPath)
             DayCell.textLabel.backgroundColor = UIColor.white
             DayCell.backgroundColor = UIColor.white
+
+            //線 描画
+            DayCell.lineUIView.isHidden = true
+
             //月によって1日の場所は異なる(後ほど説明します)
         }
         
@@ -219,7 +271,7 @@ class CalendarViewController: UIViewController, CalendarViewControllerDelegate, 
 //    }
     
     
-    let margin: CGFloat = 20.0
+    //let margin: CGFloat = 20.0
 
     //セクションの数
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -247,11 +299,11 @@ class CalendarViewController: UIViewController, CalendarViewControllerDelegate, 
         let numberOfMargin:CGFloat = 8.0
 
         var width:CGFloat = (collectionView.frame.size.width - cellMargin * numberOfMargin) / CGFloat(daysPerWeek)
-        var height:CGFloat = (self.view.frame.height - 170 - 30) / 6
+        var height:CGFloat = (self.view.frame.height - 170 - 30) / CGFloat(dateManager.numberOfWeeks)
 
         if indexPath.section == 0 {
-            width = (collectionView.frame.size.width - 0 * numberOfMargin) / CGFloat(daysPerWeek)
-            height = 30
+            width = ((collectionView.frame.size.width - 0 * numberOfMargin) / CGFloat(daysPerWeek)) - 1
+            height = titleHeaderHeight + titleHeaderLine
         }
 
         return CGSize(width:width,height:height)
@@ -280,11 +332,80 @@ class CalendarViewController: UIViewController, CalendarViewControllerDelegate, 
     //headerの月を変更
     func changeHeaderTitle(date: NSDate) -> String {
         let formatter: DateFormatter = DateFormatter()
-        formatter.dateFormat = "M/yyyy"
+        formatter.dateFormat = "yyyy年M月"
         let selectMonth = formatter.string(from: date as Date)
         return selectMonth
     }
+  
+    //******** swipe
+    @objc func didSwipe(_ sender: UISwipeGestureRecognizer) {
+        
+        if sender.direction == .right {
+            print("Right")
+
+            
+            //前月へ
+            selectedDate = dateManager.prevMonth(date: selectedDate as Date) as NSDate
+            andShareCalendar?.reloadData()
+            headerTitle.text = changeHeaderTitle(date: selectedDate)
+
+            
+//            //andShareCalendar の移動
+//            let returnMove = UIView.animate(withDuration: 0.5, delay: 0.0, options: .autoreverse, animations: {
+//                self.andShareCalendarUIView?.center.x -= 100.0
+//            }, completion: nil)
+
+            
+            //andShareCalendar の移動
+//            UIView.animate(withDuration: 0.3, delay: 0.0, options: .autoreverse, animations: {
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
+                self.andShareCalendarUIView?.center.x += 400.0
+            }, completion: { finished in
+                
+                self.andShareCalendarUIView?.frame.origin.x -= 800.0
+
+                // ①が終わったら、
+                UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions(rawValue: 0), animations: {
+                    self.andShareCalendarUIView?.center.x += 400.0
+                }, completion:nil)
+
+            })
+            
+
+            
+
+        }
+        else if sender.direction == .left {
+            print("Left")
+            //次月へ
+            selectedDate = dateManager.nextMonth(date: selectedDate as Date) as NSDate
+            andShareCalendar?.reloadData()
+            headerTitle.text = changeHeaderTitle(date: selectedDate)
+
+            //andShareCalendar の移動
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
+                self.andShareCalendarUIView?.center.x -= 400.0
+            }, completion: { finished in
+                
+                self.andShareCalendarUIView?.frame.origin.x += 800.0
+                
+                // ①が終わったら、
+                UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions(rawValue: 0), animations: {
+                    self.andShareCalendarUIView?.center.x -= 400.0
+                }, completion:nil)
+                
+            })
+
+
+        }
+    }
     
+//    //******** ドラッグ時に呼ばれる
+//    @objc func didDrag(_ sender: UISwipeGestureRecognizer) {
+//        print("asdf")
+//    }
+
+
     //******** EventKit 関連
     // 許可状況を確認して、許可されていなかったら許可を得る
     func allowAuthorization() {

@@ -32,7 +32,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         //CalendarView.delegate = self
 
         //******** ログイン済みかを確認
-        self.checkLogin()
+//        self.checkLogin()
         
         //******** 背景色 設定
         self.view.backgroundColor = cBackGround
@@ -143,6 +143,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     //Print into the console if successfully logged in
                     print("You have successfully logged in")
                     
+                    self.navigationController?.pushViewController(CalendarView, animated: true)
+
 //                    //Go to the HomeViewController if the login is sucessful
 //                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "Home")
 //                    self.present(vc!, animated: true, completion: nil)
@@ -231,6 +233,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             () -> Void in
             print("HavingItem追加へ遷移後")
         })
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
+    {
+        mailAddressText.resignFirstResponder()
+        passwordText.resignFirstResponder()
+        return true;
     }
 }
 
