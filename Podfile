@@ -16,6 +16,8 @@ target 'AndShare' do
   
   pod 'RxSwift',    '~> 4.0'
   pod 'RxCocoa',    '~> 4.0'
+  pod 'RxGesture'
+pod 'RxDataSources', '~> 3.0'
 
   target 'AndShareTests' do
     inherit! :search_paths

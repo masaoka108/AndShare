@@ -8,31 +8,33 @@
 
 import UIKit
 import Firebase
+import RxSwift
+import RxCocoa
 
-protocol CalendarViewControllerDelegate
+protocol MonthlyCalendarViewControllerDelegate
 {
     func showData()
 }
 
-class LoginViewController: UIViewController, UITextFieldDelegate {
+class LoginViewController: UIViewController {
 
-    var delegate: CalendarViewControllerDelegate?
+    var delegate: MonthlyCalendarViewControllerDelegate?
     var mailAddressText: UITextField = UITextField()
     var passwordText: UITextField = UITextField()
 
     var termsLabel: UILabel = UILabel()
     let linkText = "利用規約"
     
+    private let disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
 
         //******** Delegate
-        self.delegate = CalendarView
-        //CalendarView.delegate = self
+        self.delegate = MonthlyCalendarView
 
         //******** ログイン済みかを確認
-//        self.checkLogin()
+        self.checkLogin()
         
         //******** 背景色 設定
         self.view.backgroundColor = cBackGround
@@ -67,7 +69,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         mailAddressText.returnKeyType = UIReturnKeyType.done
         mailAddressText.clearButtonMode = UITextFieldViewMode.whileEditing;
         mailAddressText.contentVerticalAlignment = UIControlContentVerticalAlignment.center
-        mailAddressText.delegate = self
+        mailAddressText.rx.controlEvent(UIControlEvents.editingDidEndOnExit)
+            .subscribe(onNext: { [weak self] _ in
+                self?.mailAddressText.resignFirstResponder()
+            })
+            .disposed(by: disposeBag)
+
         self.view.addSubview(mailAddressText)
 
         //******** 「パスワード」テキスト
@@ -80,30 +87,50 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         passwordText.returnKeyType = UIReturnKeyType.done
         passwordText.clearButtonMode = UITextFieldViewMode.whileEditing;
         passwordText.contentVerticalAlignment = UIControlContentVerticalAlignment.center
-        passwordText.delegate = self
+        passwordText.rx.controlEvent(UIControlEvents.editingDidEndOnExit)
+            .subscribe(onNext: { [weak self] _ in
+                self?.passwordText.resignFirstResponder()
+            })
+            .disposed(by: disposeBag)
+        
         self.view.addSubview(passwordText)
 
         //********「サインアップ」ボタン
         let signUpButton = UIButton(frame: CGRect(x: 10,y: self.view.frame.height - 140,width: self.view.frame.width - 20, height:60))
         signUpButton.setTitle("サインアップ", for: .normal)
         signUpButton.backgroundColor = cBlue
-        signUpButton.addTarget(self, action: #selector(LoginViewController.signUp(_:)), for: .touchUpInside)
         signUpButton.layer.cornerRadius = 10
+        signUpButton.rx.tap
+            .subscribe { [weak self] _ in
+                //サインアップ画面へ遷移
+                self?.present(SignUpView, animated: true, completion: {
+                    () -> Void in
+                    print("HavingItem追加へ遷移後")
+                })
+            }
+            .disposed(by: disposeBag)
+
         view.addSubview(signUpButton)
 
         //********「ログイン」ボタン
         let loginButton = UIButton(frame: CGRect(x: 10,y: self.view.frame.height - 70,width: self.view.frame.width - 20,height:60))
         loginButton.setTitle("ログイン", for: .normal)
         loginButton.backgroundColor = cRed
-        loginButton.addTarget(self, action: #selector(LoginViewController.login(_:)), for: .touchUpInside)
         loginButton.layer.cornerRadius = 10
+        loginButton.rx.tap
+            .subscribe { [weak self] _ in
+                //ログイン処理 実行
+                self?.login()
+            }
+            .disposed(by: disposeBag)
+        
         view.addSubview(loginButton)
 
     }
     
     func checkLogin() {
         let user = Auth.auth().currentUser
-        if let user = user {
+        if user != nil {
             //ログイン済 カレンダー画面へ遷移
             print("login")
             
@@ -113,10 +140,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 print("delegate 未設定")
             }
             
-            
-            //self.delegate?.showList()
-            //ReceiptListItemView.view.backgroundColor = cRed2
-            self.navigationController?.pushViewController(CalendarView, animated: true)
+            self.navigationController?.pushViewController(MonthlyCalendarView, animated: true)
 
             
 //            // The user's ID, unique to the Firebase project.
@@ -130,7 +154,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     //ログインボタン タップ時
-    @objc func login(_ sender: UIButton) {
+    func login() {
         
         if (mailAddressText.text != "" && passwordText.text != "") {
             Auth.auth().signIn(withEmail: mailAddressText.text!, password: passwordText.text!) { (user, error) in
@@ -143,7 +167,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     //Print into the console if successfully logged in
                     print("You have successfully logged in")
                     
-                    self.navigationController?.pushViewController(CalendarView, animated: true)
+                    self.navigationController?.pushViewController(MonthlyCalendarView, animated: true)
 
 //                    //Go to the HomeViewController if the login is sucessful
 //                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "Home")
@@ -174,72 +198,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 //                    // ...
 //                }
             }
-            
         }
-
-        
-
-        
-//        guard let itemName = nameTextField?.text else {
-//            fatalError("名前が入力されていません。")
-//        }
-//
-//        //**** マスタに存在しているかAPIで確認
-//        let escapedString:String = itemName.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
-//        let ret = APIAccess(url: "\(apiHost)item/\(escapedString)")
-//
-//
-//
-//        if ((ret?.count)! == 0) {
-//            let alert = msgAlert(title:"エラー", message:"登録されていない材料なので登録出来ません。")
-//            present(alert, animated: true, completion: nil)
-//            return
-//        }
-//
-//        //**** HavingItem へインサート
-//        Model.saveHavingItem(itemName:itemName);
-//
-//        //**** Alert表示
-//        let alert: UIAlertController = UIAlertController(title: "完了メッセージ", message: "材料の登録が完了しました。", preferredStyle:  UIAlertControllerStyle.alert)
-//        // OKボタン
-//        let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler:{
-//            // ボタンが押された時の処理を書く（クロージャ）
-//            (action: UIAlertAction!) -> Void in
-//            print("OK")
-//
-//            self.dismiss(animated: true, completion: {
-//                () -> Void in
-//                print("画面遷移後")
-//
-//                if let dg = self.delegate {
-//                    dg.reloadScrollView()
-//                } else {
-//                    print("delegate 未設定")
-//                }
-//            })
-//
-//        })
-//
-//        alert.addAction(defaultAction)
-//        present(alert, animated: true, completion: nil)
-//
-//
-        
-    }
-    
-    //サインアップ ボタン　タップ時
-    @objc func signUp(_ sender: UIButton) {
-        self.present(SignUpView, animated: true, completion: {
-            () -> Void in
-            print("HavingItem追加へ遷移後")
-        })
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool
-    {
-        mailAddressText.resignFirstResponder()
-        passwordText.resignFirstResponder()
-        return true;
     }
 }
 

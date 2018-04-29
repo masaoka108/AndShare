@@ -12,7 +12,7 @@ import UIKit
 //********* ViewController
 var RootView:LoginViewController?
 let SignUpView:SignUpViewController = SignUpViewController()
-let CalendarView:CalendarViewController = CalendarViewController()
+let MonthlyCalendarView:MonthlyCalendarViewController = MonthlyCalendarViewController()
 
 
 

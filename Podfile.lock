@@ -1,4 +1,5 @@
 PODS:
+  - Differentiator (3.0.2)
   - Firebase/Auth (4.13.0):
     - Firebase/Core
     - FirebaseAuth (= 4.6.1)
@@ -39,6 +40,13 @@ PODS:
     - RxSwift (~> 4.0)
   - RxCocoa (4.1.2):
     - RxSwift (~> 4.0)
+  - RxDataSources (3.0.2):
+    - Differentiator (~> 3.0)
+    - RxCocoa (~> 4.0)
+    - RxSwift (~> 4.0)
+  - RxGesture (1.2.1):
+    - RxCocoa (~> 4.0)
+    - RxSwift (~> 4.0)
   - RxSwift (4.1.2)
   - RxTest (4.1.2):
     - RxSwift (~> 4.0)
@@ -49,10 +57,13 @@ DEPENDENCIES:
   - Koyomi
   - RxBlocking (~> 4.0)
   - RxCocoa (~> 4.0)
+  - RxDataSources (~> 3.0)
+  - RxGesture
   - RxSwift (~> 4.0)
   - RxTest (~> 4.0)
 
 SPEC CHECKSUMS:
+  Differentiator: a87be69eba49ec4ab460c7671143ee3a9eececfd
   Firebase: 5ec5e863d269d82d66b4bf56856726f8fb8f0fb3
   FirebaseAnalytics: 7ef69e76a5142f643aeb47c780e1cdce4e23632e
   FirebaseAuth: bf22cacf22c60ab454bf2636f556d8892b10b53f
@@ -64,9 +75,11 @@ SPEC CHECKSUMS:
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   RxBlocking: f6054985901412fc8c02daa84e92d4ba68c61389
   RxCocoa: d88ba0f1f6abf040011a9eb4b539324fc426843a
+  RxDataSources: cb7c31e652a87ebb919da45f716bbb87b3765f6b
+  RxGesture: c278eb05b187abd47e11e65464ae4de53ab71d95
   RxSwift: e49536837d9901277638493ea537394d4b55f570
   RxTest: e634f15fd2c2cd0e0120132ef7a4f7be69ad0393
 
-PODFILE CHECKSUM: 68f1fa1257417e8b38a0b91924b306bded4443ed
+PODFILE CHECKSUM: 5c6075fbccfae2e91947d06dd6225b49a8dcbf75
 
 COCOAPODS: 1.4.0
