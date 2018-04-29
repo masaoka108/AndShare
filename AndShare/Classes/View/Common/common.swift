@@ -36,19 +36,33 @@ func createUITab(width:CGFloat, height:CGFloat) ->UITabBar {
 //    let calendar3:UITabBarItem = UITabBarItem(title: "カレンダー", image: UIImage(named: "TabCalendarIcon"), tag: 3)
 //    let calendar4:UITabBarItem = UITabBarItem(title: "カレンダー", image: UIImage(named: "TabCalendarIcon"), tag: 4)
 
-    let button2 = UIButton(type: .custom)
-    button2.setBackgroundImage(UIImage(named: "TabCalendarIcon") , for: .normal)   // TODO:画像の用意
-    button2.sizeToFit()
-    button2.center = CGPoint(x: myTabBar.bounds.size.width / 8, y: myTabBar.bounds.size.height / 2)
+    let calendarButton = UIButton(type: .custom)
+    calendarButton.setBackgroundImage(UIImage(named: "TabCalendarIcon") , for: .normal)   // TODO:画像の用意
+    calendarButton.sizeToFit()
+    calendarButton.center = CGPoint(x: myTabBar.bounds.size.width / 8, y: myTabBar.bounds.size.height / 3)
     //        button.addTarget(self, action: Selector("tapBigCenter:"), for: .touchUpInside)
-    myTabBar.addSubview(button2)
+    myTabBar.addSubview(calendarButton)
 
-    let button3 = UIButton(type: .custom)
-    button3.setBackgroundImage(UIImage(named: "TabGroupIcon") , for: .normal)   // TODO:画像の用意
-    button3.sizeToFit()
-    button3.center = CGPoint(x: myTabBar.bounds.size.width / 3.5, y: myTabBar.bounds.size.height / 2)
+    let groupButton = UIButton(type: .custom)
+    groupButton.setBackgroundImage(UIImage(named: "TabGroupIcon") , for: .normal)   // TODO:画像の用意
+    groupButton.sizeToFit()
+    groupButton.center = CGPoint(x: myTabBar.bounds.size.width / 3.5, y: myTabBar.bounds.size.height / 3)
     //        button.addTarget(self, action: Selector("tapBigCenter:"), for: .touchUpInside)
-    myTabBar.addSubview(button3)
+    myTabBar.addSubview(groupButton)
+
+    let talkButton = UIButton(type: .custom)
+    talkButton.setBackgroundImage(UIImage(named: "TabTalkIcon") , for: .normal)   // TODO:画像の用意
+    talkButton.sizeToFit()
+    talkButton.center = CGPoint(x: myTabBar.bounds.size.width / 1.4, y: myTabBar.bounds.size.height / 3)
+    //        button.addTarget(self, action: Selector("tapBigCenter:"), for: .touchUpInside)
+    myTabBar.addSubview(talkButton)
+
+    let inviteButton = UIButton(type: .custom)
+    inviteButton.setBackgroundImage(UIImage(named: "TabInviteIcon") , for: .normal)   // TODO:画像の用意
+    inviteButton.sizeToFit()
+    inviteButton.center = CGPoint(x: myTabBar.bounds.size.width / 1.15, y: myTabBar.bounds.size.height / 3)
+    //        button.addTarget(self, action: Selector("tapBigCenter:"), for: .touchUpInside)
+    myTabBar.addSubview(inviteButton)
 
     
 //    //マイカレンダー

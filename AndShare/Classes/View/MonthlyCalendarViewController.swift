@@ -40,7 +40,8 @@ class MonthlyCalendarViewController: UIViewController, MonthlyCalendarViewContro
 
     //カレンダー関係
     let daysPerWeek: Int = 7
-    let cellMargin: CGFloat = 0.5
+//    let cellMargin: CGFloat = 0.5
+    let cellMargin: CGFloat = 0
     var today: NSDate!
     let weekArray = ["日", "月", "火", "水", "木", "金", "土"]
     
@@ -107,16 +108,43 @@ class MonthlyCalendarViewController: UIViewController, MonthlyCalendarViewContro
 //                    cell.lineUIView.isHidden = false
 //
 //                } else {
+                
+                    //日付
                     cell.textLabel.text = element.no
-//                    cell.textLabel.text = self.viewModel.monthlyCalendarData2.value[row].no
+
+                    //背景色
                     cell.textLabel.backgroundColor = UIColor.white
                     cell.backgroundColor = UIColor.white
-                    
+
+                
+                    //予定を表示
+                    //一旦削除
+                    let subviews = cell.subviews
+                    for subview in subviews {
+                        if (subview.tag == 1) {
+                            subview.removeFromSuperview()
+                        }
+                    }
+                
+                    //@ToDo とりあえずモック
+                    if (element.no == "7" || element.no == "11" || element.no == "22") {
+                        let eventLabel = UILabel(frame: CGRect(x: 0, y: cell.textLabel.frame.height, width: cell.frame.width,height:17))
+                        eventLabel.font = UIFont.systemFont(ofSize: 12)
+                        eventLabel.textColor = UIColor.white
+                        eventLabel.backgroundColor = cRed2
+                        eventLabel.text = "グループ"
+                        eventLabel.textAlignment = NSTextAlignment.center
+                        eventLabel.tag = 1
+                        cell.addSubview(eventLabel)
+                    }
+
                     //線 描画
                     cell.lineUIView.isHidden = true
                 
                     //これで罫線書ける？？
-                    //cell.layer.borderColor
+                    cell.layer.borderColor = cBackGround.cgColor
+                    cell.layer.borderWidth = 0.4
+
 //                }
 
 
@@ -139,13 +167,13 @@ class MonthlyCalendarViewController: UIViewController, MonthlyCalendarViewContro
             .disposed(by:disposeBag)
 
         //******** modelの選択月が変わるとココを実行
-        viewModel
-            .selectedDate
-            .asObservable()
-            .subscribe(onNext: { selectedDate in //2 selectedDate のValueが変わるとココが呼ばれる
-                self.andShareCalendar?.reloadData()
-            })
-            .disposed(by:disposeBag)
+//        viewModel
+//            .selectedDate
+//            .asObservable()
+//            .subscribe(onNext: { selectedDate in //2 selectedDate のValueが変わるとココが呼ばれる
+//                self.andShareCalendar?.reloadData()
+//            })
+//            .disposed(by:disposeBag)
 
 
     }
