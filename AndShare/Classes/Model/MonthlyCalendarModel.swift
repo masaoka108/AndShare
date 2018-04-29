@@ -11,26 +11,7 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-//struct MonthlyCalendarModel2 {
-////    let data = Observable.just([
-////        Day(no: "1", date: "1/1"),
-////        Day(no: "2", date: "1/2"),
-////        Day(no: "3", date: "1/3")
-////        ])
-//    let data:Variable<[Day]> = Variable([])
-//
-//    init() {
-//        self.data.value = [
-//            Day(no: "1", date: "1/1"),
-//            Day(no: "2", date: "1/2"),
-//            Day(no: "3", date: "1/3"),
-//            Day(no: "4", date: "1/4"),
-//            Day(no: "5", date: "1/5")
-//        ]
-//    }
-//
-//}
-
+//データソースとなるstruct
 struct Day {
     let no: String
     let date: String
@@ -41,39 +22,9 @@ struct Day {
     }
 }
 
-//struct SectionOfCustomData {
-//    var header: String
-//    var items: [Item]
-//}
-//
-//extension SectionOfCustomData: SectionModelType {
-//    typealias Item = Day
-//
-//    init(original: SectionOfCustomData, items: [SectionOfCustomData.Item]) {
-//        self = original
-//        self.items = items
-//    }
-//}
-
 class MonthlyCalendarModel: NSDate {
-//    var dataSource: RxTableViewSectionedReloadDataSource<SectionOfCustomData>!
-    
-    
-//    let data:Variable<[Day]> = Variable([])
-//    let data:Variable<[SectionModel<Any, Any>]>
+
     var data:[Day] = []
-    
-//    var currentMonthOfDates = [NSDate]() //表記する月の配列
-////    var selectedDate = Date()
-//
-//    //現在の日付
-//    private var selectedDate = Date()
-//
-//    //１週間に何日あるか
-//    private let daysPerWeek:Int = 7
-//
-//    //セルの個数(nilが入らないようにする)
-//    private var numberOfItems:Int = 0
 
     var currentMonthOfDates = [NSDate]() //表記する月の配列
     var selectedDate = NSDate()
@@ -143,10 +94,7 @@ class MonthlyCalendarModel: NSDate {
             dataTemp.append(Day(no:formatter.string(from: date as Date) ,date:"1/1"))
         }
         
-        //RxSwift用のデータをセット
-//        var dataTemp2:[SectionModel<Any, Any>]
-//        dataTemp2.append(SectionModel(model:"First section", items:[]))
-//        dataTemp2.append(SectionModel(model:"Second section", items:dataTemp))
+        //RxSwift用のデータソースをセット
         self.data = dataTemp
     }
     
@@ -178,9 +126,7 @@ class MonthlyCalendarModel: NSDate {
         dateForCellAtIndexPath(numberOfItem: numberOfItems)
 
         return selectedDate as Date
-//        return selectedDate as Date
-    }
-    
+    }    
 }
 
 

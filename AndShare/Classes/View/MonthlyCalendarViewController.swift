@@ -39,8 +39,6 @@ class MonthlyCalendarViewController: UIViewController, MonthlyCalendarViewContro
 
 
     //カレンダー関係
-//    let dateManager = MonthlyCalendarModel()
-//    let dateManager = viewModel.data.value
     let daysPerWeek: Int = 7
     let cellMargin: CGFloat = 0.5
     var today: NSDate!
@@ -83,13 +81,8 @@ class MonthlyCalendarViewController: UIViewController, MonthlyCalendarViewContro
             })
             .disposed(by: disposeBag)
 
-//        let frame = CGRect(x: 0, y : 0, width: 50, height: 100)
-        
-//        let request: NSFetchRequest<NSFetchRequestResult> = andShareCalendar!.rx
-     
-
-
-        //カレンダー(UICollectionView)にデータをバインド
+ 
+        //******** カレンダー(UICollectionView)にデータをバインド
         viewModel
             .data
             .asObservable()
@@ -129,7 +122,6 @@ class MonthlyCalendarViewController: UIViewController, MonthlyCalendarViewContro
 
             }
             .disposed(by: disposeBag)
-
 
         
 //        viewModel
@@ -493,8 +485,6 @@ extension MonthlyCalendarViewController {
         let width:CGFloat = (collectionView.frame.size.width - cellMargin * numberOfMargin) / CGFloat(daysPerWeek)
         //        var height:CGFloat = (self.view.frame.height - 170 - 30) / CGFloat(dateManager.numberOfWeeks)
         let height:CGFloat = (self.view.frame.height - 170 - 30) / CGFloat(viewModel.monthlyCalendarModel.numberOfWeeks)
-        
-        
         
         //        if indexPath.section == 0 {
         //            width = ((collectionView.frame.size.width - 0 * numberOfMargin) / CGFloat(daysPerWeek)) - 1
