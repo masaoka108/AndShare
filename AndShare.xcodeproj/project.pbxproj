@@ -23,8 +23,10 @@
 		CE75E7D8207DE030008119F1 /* MonthlyCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE75E7D7207DE030008119F1 /* MonthlyCalendarViewController.swift */; };
 		CE877218208ED9A1003B6862 /* DayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE877217208ED9A1003B6862 /* DayCollectionViewCell.swift */; };
 		CE87721A208EE81B003B6862 /* MonthlyCalendarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE877219208EE81B003B6862 /* MonthlyCalendarModel.swift */; };
-		CEBB28F22090BC1A0031CE1C /* BigCenterTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBB28F12090BC1A0031CE1C /* BigCenterTabBarController.swift */; };
 		CEBB28F42090C0410031CE1C /* common.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBB28F32090C0410031CE1C /* common.swift */; };
+		CEC51722209AF2D700220438 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC51721209AF2D700220438 /* MessageModel.swift */; };
+		CEC51725209AF5E500220438 /* CommonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC51724209AF5E500220438 /* CommonViewModel.swift */; };
+		CEF571BD209B3CDE0037AE1F /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF571BC209B3CDE0037AE1F /* MessageTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,8 +74,10 @@
 		CE75E7D7207DE030008119F1 /* MonthlyCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyCalendarViewController.swift; sourceTree = "<group>"; };
 		CE877217208ED9A1003B6862 /* DayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCollectionViewCell.swift; sourceTree = "<group>"; };
 		CE877219208EE81B003B6862 /* MonthlyCalendarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyCalendarModel.swift; sourceTree = "<group>"; };
-		CEBB28F12090BC1A0031CE1C /* BigCenterTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigCenterTabBarController.swift; sourceTree = "<group>"; };
 		CEBB28F32090C0410031CE1C /* common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = common.swift; sourceTree = "<group>"; };
+		CEC51721209AF2D700220438 /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
+		CEC51724209AF5E500220438 /* CommonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonViewModel.swift; sourceTree = "<group>"; };
+		CEF571BC209B3CDE0037AE1F /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		F9E1AEA7AD211534B472CD45 /* Pods_AndShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AndShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -185,6 +189,7 @@
 		CE6D611A207CF8B4004AB11E /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				CEF571BB209B3CBD0037AE1F /* Message */,
 				CE877216208ED964003B6862 /* Calendar */,
 				CE6D6118207CF89F004AB11E /* Common.swift */,
 			);
@@ -202,7 +207,6 @@
 		CEBB28F02090BBFD0031CE1C /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				CEBB28F12090BC1A0031CE1C /* BigCenterTabBarController.swift */,
 				CEBB28F32090C0410031CE1C /* common.swift */,
 			);
 			path = Common;
@@ -211,9 +215,9 @@
 		CEC2329E2093660F0036A7FF /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				CEEC8EFB208C54D1003C8FCA /* Model */,
 				CEEC8EFA208C54C0003C8FCA /* View */,
 				CEC2329F2093662F0036A7FF /* ViewModel */,
+				CEEC8EFB208C54D1003C8FCA /* Model */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -221,9 +225,26 @@
 		CEC2329F2093662F0036A7FF /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				CEC51723209AF5D100220438 /* Common */,
 				CE24968F20940B3F00167CD8 /* MonthlyCalendarViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		CEC51720209AF2B700220438 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				CEC51721209AF2D700220438 /* MessageModel.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		CEC51723209AF5D100220438 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				CEC51724209AF5E500220438 /* CommonViewModel.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		CEEC8EFA208C54C0003C8FCA /* View */ = {
@@ -240,9 +261,18 @@
 		CEEC8EFB208C54D1003C8FCA /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CEC51720209AF2B700220438 /* Common */,
 				CE877219208EE81B003B6862 /* MonthlyCalendarModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		CEF571BB209B3CBD0037AE1F /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				CEF571BC209B3CDE0037AE1F /* MessageTableViewCell.swift */,
+			);
+			path = Message;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -443,10 +473,12 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Koyomi/Koyomi.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
 				"${BUILT_PRODUCTS_DIR}/RxGesture/RxGesture.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -455,10 +487,12 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Koyomi.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxGesture.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -560,11 +594,13 @@
 			files = (
 				CE87721A208EE81B003B6862 /* MonthlyCalendarModel.swift in Sources */,
 				CE75E7D8207DE030008119F1 /* MonthlyCalendarViewController.swift in Sources */,
+				CEC51722209AF2D700220438 /* MessageModel.swift in Sources */,
 				CE877218208ED9A1003B6862 /* DayCollectionViewCell.swift in Sources */,
 				CE6D60EB207CF0F8004AB11E /* LoginViewController.swift in Sources */,
+				CEF571BD209B3CDE0037AE1F /* MessageTableViewCell.swift in Sources */,
 				CE6D6119207CF89F004AB11E /* Common.swift in Sources */,
-				CEBB28F22090BC1A0031CE1C /* BigCenterTabBarController.swift in Sources */,
 				CE75E7D6207DB19B008119F1 /* SignUpViewController.swift in Sources */,
+				CEC51725209AF5E500220438 /* CommonViewModel.swift in Sources */,
 				CE6D60E9207CF0F8004AB11E /* AppDelegate.swift in Sources */,
 				CE24969020940B3F00167CD8 /* MonthlyCalendarViewModel.swift in Sources */,
 				CEBB28F42090C0410031CE1C /* common.swift in Sources */,
@@ -736,7 +772,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z8Z6GJBUFD;
 				INFOPLIST_FILE = AndShare/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hiliberate.AndShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -752,7 +791,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z8Z6GJBUFD;
 				INFOPLIST_FILE = AndShare/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hiliberate.AndShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -769,7 +811,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z8Z6GJBUFD;
 				INFOPLIST_FILE = AndShareTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hiliberate.AndShareTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -787,7 +833,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z8Z6GJBUFD;
 				INFOPLIST_FILE = AndShareTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hiliberate.AndShareTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -804,7 +854,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z8Z6GJBUFD;
 				INFOPLIST_FILE = AndShareUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hiliberate.AndShareUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -821,7 +875,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z8Z6GJBUFD;
 				INFOPLIST_FILE = AndShareUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hiliberate.AndShareUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

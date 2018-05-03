@@ -7,8 +7,7 @@
 //
 
 import UIKit
-import Firebase
-import EventKit
+//import EventKit
 import RxSwift
 import RxCocoa
 import RxGesture
@@ -29,7 +28,7 @@ class MonthlyCalendarViewController: UIViewController, MonthlyCalendarViewContro
 
 
     // Evevartoreを初期化
-    let eventStore = EKEventStore()
+//    let eventStore = EKEventStore()
 
 
     // Delegate メソッド
@@ -243,7 +242,7 @@ class MonthlyCalendarViewController: UIViewController, MonthlyCalendarViewContro
         view.addSubview(headerTitle)
 
         //******** Tabメニュー
-        menuTabBar = createUITab(width:self.view.frame.width, height:self.view.frame.height) as! TabBar
+        menuTabBar = createUITab(width:self.view.frame.width, height:self.view.frame.height, selfVC: self) as! TabBar
         self.view.addSubview(menuTabBar)
 
         

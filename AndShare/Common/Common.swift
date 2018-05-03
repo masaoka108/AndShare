@@ -21,8 +21,12 @@ let cBackGround = UIColor(hue: 0, saturation: 0, brightness: 0.92, alpha: 1.0)
 let cRed = UIColor(hue: 0, saturation: 0.73, brightness: 0.88, alpha: 1.0)
 let cRed2 = UIColor(hue: 0.0111, saturation: 0.82, brightness: 0.89, alpha: 1.0)
 let cBlue = UIColor(hue: 0.6056, saturation: 0.78, brightness: 0.86, alpha: 1.0)
+let cWhiteTransparent = UIColor(hue: 0, saturation: 0, brightness: 1, alpha: 0.8)
 
 
 //******** Calendar
 let titleHeaderHeight:CGFloat = 27.5
 let titleHeaderLine:CGFloat = 2.5
+
+
+//********

@@ -15,12 +15,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var navigationController: UINavigationController?   //Navigation使用時に追加
 
+    //******** firebaseに関する変数
+//    public var ref: DatabaseReference!
+////    fileprivate var _refHandle: DatabaseHandle!
+//    public var _refHandle: DatabaseHandle!
+//    public var storageRef: StorageReference!
+//    public var remoteConfig: RemoteConfig!
+//    public var msglength: NSNumber = 10
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 
         //******** Firebaseを設定
         FirebaseApp.configure()
 
+        //**** Firebase DB設定
+//        configureDatabase()
+        
+        //**** Firebase　ストレージ設定
+//        configureStorage()
+        
+//        //**** Firebase　リモートconfig設定
+//        configureRemoteConfig()
+//
+//        fetchConfig()
+
+        
+        
         //******** StoryBoad使わないのでここでNavigationを設定
         let viewController: LoginViewController = LoginViewController()
         navigationController = UINavigationController(rootViewController: viewController)
@@ -33,6 +54,59 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
+//    func configureDatabase() {
+////        ref = Database.database().reference()
+//    }
+//
+//    func configureStorage() {
+//        //たぶんfirebase側で未設定。s
+//        //storageRef = Storage.storage().reference()
+//    }
+//
+//    // Remote Config 設定
+//    func configureRemoteConfig() {
+//        remoteConfig = RemoteConfig.remoteConfig()
+//        // Create Remote Config Setting to enable developer mode.
+//        // Fetching configs from the server is normally limited to 5 requests per hour.
+//        // Enabling developer mode allows many more requests to be made per hour, so developers
+//        // can test different config values during development.
+//        let remoteConfigSettings = RemoteConfigSettings(developerModeEnabled: true)
+//        remoteConfig.configSettings = remoteConfigSettings!
+//    }
+//
+//    // Remote Config を使用する
+//    func fetchConfig() {
+//        var expirationDuration: TimeInterval = 3600
+//        // If in developer mode cacheExpiration is set to 0 so each fetch will retrieve values from
+//        // the server.
+//        if self.remoteConfig.configSettings.isDeveloperModeEnabled {
+//            expirationDuration = 0
+//        }
+//
+//        // cacheExpirationSeconds is set to cacheExpiration here, indicating that any previously
+//        // fetched and cached config would be considered expired because it would have been fetched
+//        // more than cacheExpiration seconds ago. Thus the next fetch would go to the server unless
+//        // throttling is in progress. The default expiration duration is 43200 (12 hours).
+//        remoteConfig.fetch(withExpirationDuration: expirationDuration) { [weak self] (status, error) in
+//            if status == .success {
+//                print("Config fetched!")
+//                guard let strongSelf = self else { return }
+//                strongSelf.remoteConfig.activateFetched()
+//                let friendlyMsgLength = strongSelf.remoteConfig["friendly_msg_length"]
+//                if friendlyMsgLength.source != .static {
+//                    strongSelf.msglength = friendlyMsgLength.numberValue!
+//                    print("Friendly msg length config: \(strongSelf.msglength)")
+//                }
+//            } else {
+//                print("Config not fetched")
+//                if let error = error {
+//                    print("Error \(error)")
+//                }
+//            }
+//        }
+//    }
+    
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

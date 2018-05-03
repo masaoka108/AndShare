@@ -10,6 +10,10 @@ target 'AndShare' do
   # firebase
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
+  pod 'Firebase/Database'
+  pod 'Firebase/RemoteConfig'
+  pod 'Firebase/Storage'
+
 
   # calendar
   pod 'Koyomi'

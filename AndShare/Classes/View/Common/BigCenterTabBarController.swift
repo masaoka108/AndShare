@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BigCenterTabBarController: UITabBarController {
+class BigCenterTabBar1111Controller: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
