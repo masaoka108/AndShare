@@ -8,18 +8,21 @@
 
 import UIKit
 import Firebase
+import GoogleSignIn
+
+var storage:Storage!
+var storageRef: StorageReference!
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var navigationController: UINavigationController?   //Navigation使用時に追加
-
+    
     //******** firebaseに関する変数
 //    public var ref: DatabaseReference!
 ////    fileprivate var _refHandle: DatabaseHandle!
 //    public var _refHandle: DatabaseHandle!
-//    public var storageRef: StorageReference!
 //    public var remoteConfig: RemoteConfig!
 //    public var msglength: NSNumber = 10
 
@@ -33,13 +36,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        configureDatabase()
         
         //**** Firebase　ストレージ設定
-//        configureStorage()
+        configureStorage()
         
 //        //**** Firebase　リモートconfig設定
 //        configureRemoteConfig()
 //
 //        fetchConfig()
 
+        //******** Google Calendar
+        GIDSignIn.sharedInstance().clientID = "763327700395-srci3daevqh6mbqgfqjgvomv8r7qmkdc.apps.googleusercontent.com"
         
         
         //******** StoryBoad使わないのでここでNavigationを設定
@@ -58,10 +63,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 ////        ref = Database.database().reference()
 //    }
 //
-//    func configureStorage() {
-//        //たぶんfirebase側で未設定。s
-//        //storageRef = Storage.storage().reference()
-//    }
+    
+    func application(_ application: UIApplication,
+                     open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        return GIDSignIn.sharedInstance().handle(url,
+                                                 sourceApplication: sourceApplication,
+                                                 annotation: annotation)
+    }
+    
+    @available(iOS 9.0, *)
+    func application(_ app: UIApplication, open url: URL,
+                     options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
+        let sourceApplication = options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String
+        let annotation = options[UIApplicationOpenURLOptionsKey.annotation]
+        return GIDSignIn.sharedInstance().handle(url,
+                                                 sourceApplication: sourceApplication,
+                                                 annotation: annotation)
+    }
+    
+    
+    func configureStorage() {
+        storage = Storage.storage()
+        
+        //たぶんfirebase側で未設定。s
+        storageRef = Storage.storage().reference()
+    }
 //
 //    // Remote Config 設定
 //    func configureRemoteConfig() {

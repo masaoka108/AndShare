@@ -11,6 +11,8 @@
 		7A6FACD6C94D2CA6B6737FB1 /* Pods_AndShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9E1AEA7AD211534B472CD45 /* Pods_AndShare.framework */; };
 		99F44F2BE9C6D5B8052C8C96 /* Pods_AndShareTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 150E7183F4292FD663A3B14E /* Pods_AndShareTests.framework */; };
 		CE24969020940B3F00167CD8 /* MonthlyCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE24968F20940B3F00167CD8 /* MonthlyCalendarViewModel.swift */; };
+		CE675344209EB27E00D13B4D /* MyAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE675343209EB27E00D13B4D /* MyAlertController.swift */; };
+		CE675346209EBE5C00D13B4D /* ActionSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE675345209EBE5C00D13B4D /* ActionSheetViewController.swift */; };
 		CE6D60E9207CF0F8004AB11E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6D60E8207CF0F8004AB11E /* AppDelegate.swift */; };
 		CE6D60EB207CF0F8004AB11E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6D60EA207CF0F8004AB11E /* LoginViewController.swift */; };
 		CE6D60F0207CF0FA004AB11E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE6D60EF207CF0FA004AB11E /* Assets.xcassets */; };
@@ -56,6 +58,8 @@
 		B91FBAF4204D864FE8F9084F /* Pods_AndShareUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AndShareUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C95DBFEB52060CB5ED9700B1 /* Pods-AndShareUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AndShareUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AndShareUITests/Pods-AndShareUITests.release.xcconfig"; sourceTree = "<group>"; };
 		CE24968F20940B3F00167CD8 /* MonthlyCalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyCalendarViewModel.swift; sourceTree = "<group>"; };
+		CE675343209EB27E00D13B4D /* MyAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlertController.swift; sourceTree = "<group>"; };
+		CE675345209EBE5C00D13B4D /* ActionSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetViewController.swift; sourceTree = "<group>"; };
 		CE6D60E5207CF0F8004AB11E /* AndShare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AndShare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE6D60E8207CF0F8004AB11E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE6D60EA207CF0F8004AB11E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -208,6 +212,8 @@
 			isa = PBXGroup;
 			children = (
 				CEBB28F32090C0410031CE1C /* common.swift */,
+				CE675343209EB27E00D13B4D /* MyAlertController.swift */,
+				CE675345209EBE5C00D13B4D /* ActionSheetViewController.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -453,9 +459,12 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-AndShare/Pods-AndShare-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -470,7 +479,9 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-AndShare/Pods-AndShare-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleAPIClientForREST/GoogleAPIClientForREST.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Koyomi/Koyomi.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
@@ -484,7 +495,9 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleAPIClientForREST.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Koyomi.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
@@ -592,9 +605,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE675344209EB27E00D13B4D /* MyAlertController.swift in Sources */,
 				CE87721A208EE81B003B6862 /* MonthlyCalendarModel.swift in Sources */,
 				CE75E7D8207DE030008119F1 /* MonthlyCalendarViewController.swift in Sources */,
 				CEC51722209AF2D700220438 /* MessageModel.swift in Sources */,
+				CE675346209EBE5C00D13B4D /* ActionSheetViewController.swift in Sources */,
 				CE877218208ED9A1003B6862 /* DayCollectionViewCell.swift in Sources */,
 				CE6D60EB207CF0F8004AB11E /* LoginViewController.swift in Sources */,
 				CEF571BD209B3CDE0037AE1F /* MessageTableViewCell.swift in Sources */,

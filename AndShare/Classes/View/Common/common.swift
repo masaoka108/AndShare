@@ -10,6 +10,7 @@ import UIKit
 import Foundation
 import RxSwift
 import RxCocoa
+import Firebase
 
 
 private let disposeBag = DisposeBag()
@@ -54,11 +55,12 @@ func createUITab(width:CGFloat, height:CGFloat, selfVC:UIViewController) ->UITab
     talkButton.setBackgroundImage(UIImage(named: "TabTalkIcon") , for: .normal)   // @ToDo:画像の用意
     talkButton.sizeToFit()
     talkButton.center = CGPoint(x: myTabBar.bounds.size.width / 1.4, y: myTabBar.bounds.size.height / 3)
-    //        button.addTarget(self, action: Selector("tapBigCenter:"), for: .touchUpInside)
     talkButton.rx.tap
         .subscribe { [weak selfVC] _ in
+            //******** メッセージボタン クリック時
             
             //**** チャット UIView
+//            let frameUIView = CGRect(x: 0, y : (selfVC?.view.frame.height)! / 3 * 1, width: (selfVC?.view.frame.width)!, height: (selfVC?.view.frame.height)! / 3 * 2)
             let frameUIView = CGRect(x: 0, y : (selfVC?.view.frame.height)! / 3 * 1, width: (selfVC?.view.frame.width)!, height: (selfVC?.view.frame.height)! / 3 * 2)
             let chatUIView = UIView(frame: frameUIView)
             chatUIView.tag = 1000
@@ -85,30 +87,80 @@ func createUITab(width:CGFloat, height:CGFloat, selfVC:UIViewController) ->UITab
 
             //**チャット自体
             //TableView
-            let frame = CGRect(x: 0, y : 20, width: (selfVC?.view.frame.width)!, height: (selfVC?.view.frame.height)! - 170)
+            let tableHeight = chatUIView.frame.height - 20.0 - 50.0
+            let frame = CGRect(x: 0, y : 20, width: (selfVC?.view.frame.width)!, height: tableHeight)
             messageTableView = UITableView(frame: frame)
             messageTableView.register(MessageTableViewCell.self, forCellReuseIdentifier: "MessageCell")
-            chatUIView.addSubview(messageTableView!)
-            
+            messageTableView.backgroundColor = UIColor.clear
+            messageTableView.allowsSelection = false;
+//            messageTableView.rowHeight = 100
+            messageTableView.rx
+                .setDelegate(selfVC as! UITableViewDelegate)
+                .disposed(by: disposeBag)
+            messageTableView.separatorStyle = .none
+//            messageTableView.delegate = selfVC as? MonthlyCalendarViewController
+
             commonViewMoel
                 .dataMessages
                 .bind(to: messageTableView!.rx.items(cellIdentifier: "MessageCell", cellType: MessageTableViewCell.self))
                 { (row, element, cell) in
                     cell.nameLabel.text = element.sender
                     cell.messageLabel.text = element.message
-                    cell.sendDateLable.text = element.created
+//                    cell.sendDateLable.text = element.created
+                    
+//                    let imagesRef = storageRef.child("images")
+                    Storage.storage().reference(forURL: "gs://andshare-fead4.appspot.com/main@2x.png").getData(maxSize: INT64_MAX) {(data, error) in
+                        if let error = error {
+                            print("Error downloading: \(error)")
+                            return
+                        }
+                        DispatchQueue.main.async {
+
+
+//                            //これで一応表示はされる。
+//                            let image = UIImage(data: data!)
+//                            let imageView = UIImageView(image: image!)
+//                            imageView.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+//                            cell.addSubview(imageView)
+
+                            
+                            
+//                            cell.addSubview(<#T##view: UIView##UIView#>)
+//                            cell.imageView = UIImageView(image: image!)
+
+                            cell.iconImageView?.image = UIImage.init(data: data!)
+//                            cell.imageView?.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+
+
+                            //cell.setNeedsLayout()
+                        }
+                    }
+
+
+                    cell.backgroundColor = UIColor.clear
+//                    // 算出された幅と高さをセット
+//                    let rect: CGSize = cell.messageLabel.sizeThatFits(CGSize(width: frame.width, height: CGFloat.greatestFiniteMagnitude))
+//                    cell.messageLabel.backgroundColor = UIColor.red
+//                    cell.messageLabel.frame = CGRect(x: 0, y: 10, width: rect.width, height: rect.height)
+                    
                 }
                 .disposed(by: disposeBag)
-
-            
             
             //DBに変更があった場合 リアルタイムにここが実行される
             let subscription = commonViewMoel.dataMessages
                 .subscribe(onNext: { message in
                     print("string")
                     messageTableView.reloadData()
+                    
+                    messageTableView.scrollToRow(at: IndexPath(row: message.count - 1, section: 0), at: UITableViewScrollPosition.bottom, animated: false)
+
+                    ActivityIndicator.stopAnimating()
                 })
-            
+
+            messageTableView.estimatedRowHeight = 100
+            messageTableView.rowHeight = UITableViewAutomaticDimension
+            chatUIView.addSubview(messageTableView!)
+
             
             //**入力部分
             let frameUIViewInput = CGRect(x: 0, y : chatUIView.frame.height - 50, width: (selfVC?.view.frame.width)!, height: 50)
@@ -142,6 +194,10 @@ func createUITab(width:CGFloat, height:CGFloat, selfVC:UIViewController) ->UITab
             
             inputUIView.addSubview(inputText)
             selfVC?.view.addSubview(chatUIView)
+
+            //******** Indicator 表示
+            ActivityIndicator.startAnimatingOnTop(selfVC: selfVC!)
+            
         }
         .disposed(by: disposeBag)
 
@@ -163,6 +219,42 @@ func createUITab(width:CGFloat, height:CGFloat, selfVC:UIViewController) ->UITab
     
     return myTabBar
 }
+
+//******** Indicator(ローディングのクルクル)
+var ActivityIndicator: UIActivityIndicatorView!
+
+func createIndicator(selfVC:UIViewController) {
+    // ActivityIndicatorを作成＆中央に配置
+    ActivityIndicator = UIActivityIndicatorView()
+    ActivityIndicator.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+    ActivityIndicator.center = selfVC.view.center
+    
+    // クルクルをストップした時に非表示する
+    ActivityIndicator.hidesWhenStopped = true
+    
+    // 色を設定
+    ActivityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+    
+    ActivityIndicator.tag = 900
+    
+    //Viewに追加
+    selfVC.view.addSubview(ActivityIndicator)
+}
+
+extension UIActivityIndicatorView {
+    func startAnimatingOnTop(selfVC:UIViewController) {
+        for v in (selfVC.view.subviews) {
+            if let v = v as? UIActivityIndicatorView, v.tag == 900  {
+                // Indicator をTOPに持ってくる
+                selfVC.view.bringSubview(toFront: v)
+            }
+        }
+
+        ActivityIndicator.startAnimating()
+    }
+}
+
+
 
 class TabBar: UITabBar {
     override func sizeThatFits(_ size: CGSize) -> CGSize {

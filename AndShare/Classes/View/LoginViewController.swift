@@ -41,8 +41,9 @@ class LoginViewController: UIViewController {
 
         //******** UI Create
         self.createUI()
-        
-        
+
+        //******** Indicator Create
+        createIndicator(selfVC: self)
     }
 
     override func didReceiveMemoryWarning() {

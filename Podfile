@@ -21,7 +21,10 @@ target 'AndShare' do
   pod 'RxSwift',    '~> 4.0'
   pod 'RxCocoa',    '~> 4.0'
   pod 'RxGesture'
-pod 'RxDataSources', '~> 3.0'
+  pod 'RxDataSources', '~> 3.0'
+
+  pod 'GoogleAPIClientForREST/Calendar', '~> 1.2.1'
+  pod 'GoogleSignIn', '~> 4.1.1'
 
   target 'AndShareTests' do
     inherit! :search_paths
