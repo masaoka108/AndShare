@@ -154,7 +154,7 @@ class MonthlyCalendarViewController: UIViewController, MonthlyCalendarViewContro
             })
             .disposed(by: disposeBag)
 
- 
+
         //******** カレンダー(UICollectionView)にデータをバインド
         viewModel
             .data

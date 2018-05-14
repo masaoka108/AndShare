@@ -9,18 +9,13 @@
 import RxSwift
 import Firebase
 
-//protocol CommentServicing {
-//    func comments(for username: String) -> Observable<[String]>
-//    func comment(_ comment: String, for username: String)
-//}
-
 //チャット データソースとなるstruct
 struct Message {
     let sender: String
     let message: String
-    let created: String
+    let created: Int
     
-    init(sender:String, message:String, created:String) {
+    init(sender:String, message:String, created:Int) {
         self.sender = sender
         self.message = message
         self.created = created
@@ -46,7 +41,7 @@ class MessageModel {
                 
                 let sender = (value as? NSDictionary)?["sender"] as? String
                 let message = (value as? NSDictionary)?["message"] as? String
-                let created = (value as? NSDictionary)?["created"] as? String
+                let created = (value as? NSDictionary)?["created"] as? Int
                 data?.append(Message(sender: sender!, message: message!, created: created!))
             }
             
@@ -101,8 +96,17 @@ class MessageModel {
 //            }
 
             //FirebaseのリアルタイムDBの状態を購読する
-            let commentsRef = self.ref.child("messages").child("groupID1")
-            let refHandle = commentsRef.observe(.value, with: { snapshot in
+            let commentsRef = self.ref.child("messages").child("groupID2").queryOrdered(byChild: "created")
+                //.queryEqual(toValue: true)
+                //.queryOrdered(byChild: "created")
+            let refHandle = commentsRef.observe(.value , with: { snapshot in
+
+                for child in snapshot.children {
+//                    print((child as AnyObject).key)
+                    print("aaa")
+                }
+                
+//            let refHandle = commentsRef.observe(.childAdded, with: { snapshot in
                 guard let commentsDict = snapshot.value as? [String: Any] else { return }
 
                 var data:[Message]? = []
@@ -112,7 +116,7 @@ class MessageModel {
                     
                     let sender = (value as? NSDictionary)?["sender"] as? String
                     let message = (value as? NSDictionary)?["message"] as? String
-                    let created = (value as? NSDictionary)?["created"] as? String
+                    let created = Int(((value as? NSDictionary)?["created"] as? String)!)
                     data?.append(Message(sender: sender!, message: message!, created: created!))
                 }
 

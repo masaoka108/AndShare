@@ -161,6 +161,20 @@ func createUITab(width:CGFloat, height:CGFloat, selfVC:UIViewController) ->UITab
             messageTableView.rowHeight = UITableViewAutomaticDimension
             chatUIView.addSubview(messageTableView!)
 
+            //上までスクロールしたら過去データをロード
+            //      contentOffset を監視する。
+            messageTableView
+                .rx.contentOffset
+                .asObservable()
+                .map {
+                    //$0.y ・・・　現在表示しているロケーション
+                    $0.y < 30
+                }
+                .distinctUntilChanged()
+                .bind(to:commonViewMoel.scrollEndComing)
+                .disposed(by:disposeBag)
+
+            
             
             //**入力部分
             let frameUIViewInput = CGRect(x: 0, y : chatUIView.frame.height - 50, width: (selfVC?.view.frame.width)!, height: 50)
@@ -219,6 +233,11 @@ func createUITab(width:CGFloat, height:CGFloat, selfVC:UIViewController) ->UITab
     
     return myTabBar
 }
+
+//private func shouldRequestNextPage() -> Bool {
+//    return messageTableView.contentSize.height > 0 &&
+//        messageTableView.
+//}
 
 //******** Indicator(ローディングのクルクル)
 var ActivityIndicator: UIActivityIndicatorView!

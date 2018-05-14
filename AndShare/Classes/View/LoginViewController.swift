@@ -19,7 +19,7 @@ protocol MonthlyCalendarViewControllerDelegate
 class LoginViewController: UIViewController {
 
     var delegate: MonthlyCalendarViewControllerDelegate?
-    var mailAddressText: UITextField = UITextField()
+    var mailAddressText: TextFieldLeftPadding = TextFieldLeftPadding()
     var passwordText: UITextField = UITextField()
 
     var termsLabel: UILabel = UILabel()
@@ -29,6 +29,34 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+//
+//        //テストデータを作成
+//        var ref: DatabaseReference!
+//        ref = Database.database().reference()
+//        for index in 1...32 {
+//            print("index is \(index)")
+//
+//            let newRef = ref!
+//                .child("messages/groupID2")
+//                .childByAutoId()
+//
+//            let newId = "messageID_\(newRef.key)"
+//
+//            //登録
+//            let currentData = [
+//                "created": Date().iso8601 ,
+//                "message": "message その\(index)",
+//                "sender": "MtOfUWmJuiUB4V6yCNO08i98cII3"
+//                ] as [String : Any]
+//
+////            ref.child("messages/groupID2/\(newId)").setValue(currentData)
+//            ref.child("messages/groupID2").childByAutoId().setValue(currentData)
+//
+//        }
+        
+
+        
 
         //******** Delegate
         self.delegate = MonthlyCalendarView
@@ -61,10 +89,12 @@ class LoginViewController: UIViewController {
         self.view.addSubview(titleLabel)
         
         //********「メールアドレス」テキスト
-        mailAddressText =  UITextField(frame: CGRect(x: 10, y: self.view.frame.height/3 , width: self.view.frame.width - 20, height: 60))
+        mailAddressText =  TextFieldLeftPadding(frame: CGRect(x: 0, y: self.view.frame.height/3 , width: self.view.frame.width, height: 60))
         mailAddressText.placeholder = "メールアドレス"
         mailAddressText.font = UIFont.systemFont(ofSize: 15)
-        mailAddressText.borderStyle = UITextBorderStyle.roundedRect
+//        mailAddressText.borderStyle = UITextBorderStyle.roundedRect
+        mailAddressText.backgroundColor = UIColor.white
+
         mailAddressText.autocorrectionType = UITextAutocorrectionType.no
         mailAddressText.keyboardType = UIKeyboardType.default
         mailAddressText.returnKeyType = UIReturnKeyType.done
