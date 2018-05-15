@@ -91,13 +91,14 @@ class MonthlyCalendarViewController: UIViewController, MonthlyCalendarViewContro
         let endDate = date2
 
         let defaultCalendar = eventStore.defaultCalendarForNewEvents    // ここではデフォルトのカレンダーを指定
-        // 検索するためのクエリー的なものを用意
+
+//        // 検索するためのクエリー的なものを用意
+////        let predicate = eventStore.predicateForEvents(withStart: startDate!, end: endDate! , calendars: [defaultCalendar!])
 //        let predicate = eventStore.predicateForEvents(withStart: startDate!, end: endDate! , calendars: [defaultCalendar!])
-        let predicate = eventStore.predicateForEvents(withStart: startDate!, end: endDate! , calendars: [defaultCalendar!])
-        // イベントを検索
-        let events = eventStore.events(matching: predicate)
-        // 下記でデータ取得可能
-        // events[0].title | events[0].startDate | events[0].endDate | events[0].isAllDay | events[0].location
+//        // イベントを検索
+//        let events = eventStore.events(matching: predicate)
+//        // 下記でデータ取得可能
+//        // events[0].title | events[0].startDate | events[0].endDate | events[0].isAllDay | events[0].location
         
 
 

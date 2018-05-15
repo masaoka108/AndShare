@@ -100,63 +100,107 @@ func createUITab(width:CGFloat, height:CGFloat, selfVC:UIViewController) ->UITab
             messageTableView.separatorStyle = .none
 //            messageTableView.delegate = selfVC as? MonthlyCalendarViewController
 
-            commonViewMoel
-                .dataMessages
+
+            
+
+            
+//            commonViewMoel
+//                .dataMessages
+//                .bind(to: messageTableView!.rx.items(cellIdentifier: "MessageCell", cellType: MessageTableViewCell.self))
+//                { (row, element, cell) in
+//                    cell.nameLabel.text = element.sender
+//                    cell.messageLabel.text = element.message
+////                    cell.sendDateLable.text = element.created
+//
+////                    let imagesRef = storageRef.child("images")
+//                    Storage.storage().reference(forURL: "gs://andshare-fead4.appspot.com/main@2x.png").getData(maxSize: INT64_MAX) {(data, error) in
+//                        if let error = error {
+//                            print("Error downloading: \(error)")
+//                            return
+//                        }
+//                        DispatchQueue.main.async {
+//
+//
+////                            //これで一応表示はされる。
+////                            let image = UIImage(data: data!)
+////                            let imageView = UIImageView(image: image!)
+////                            imageView.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+////                            cell.addSubview(imageView)
+//
+//
+//
+////                            cell.addSubview(<#T##view: UIView##UIView#>)
+////                            cell.imageView = UIImageView(image: image!)
+//
+//                            cell.iconImageView?.image = UIImage.init(data: data!)
+////                            cell.imageView?.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+//
+//
+//                            //cell.setNeedsLayout()
+//                        }
+//                    }
+//
+//
+//                    cell.backgroundColor = UIColor.clear
+////                    // 算出された幅と高さをセット
+////                    let rect: CGSize = cell.messageLabel.sizeThatFits(CGSize(width: frame.width, height: CGFloat.greatestFiniteMagnitude))
+////                    cell.messageLabel.backgroundColor = UIColor.red
+////                    cell.messageLabel.frame = CGRect(x: 0, y: 10, width: rect.width, height: rect.height)
+//
+//                }
+//                .disposed(by: disposeBag)
+
+            //RxSwiftを使ったTableViewへのデータバインド
+            commonViewMoel.dataMessageRx
                 .bind(to: messageTableView!.rx.items(cellIdentifier: "MessageCell", cellType: MessageTableViewCell.self))
                 { (row, element, cell) in
                     cell.nameLabel.text = element.sender
                     cell.messageLabel.text = element.message
-//                    cell.sendDateLable.text = element.created
-                    
-//                    let imagesRef = storageRef.child("images")
+
                     Storage.storage().reference(forURL: "gs://andshare-fead4.appspot.com/main@2x.png").getData(maxSize: INT64_MAX) {(data, error) in
                         if let error = error {
                             print("Error downloading: \(error)")
                             return
                         }
                         DispatchQueue.main.async {
-
-
-//                            //これで一応表示はされる。
-//                            let image = UIImage(data: data!)
-//                            let imageView = UIImageView(image: image!)
-//                            imageView.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-//                            cell.addSubview(imageView)
-
-                            
-                            
-//                            cell.addSubview(<#T##view: UIView##UIView#>)
-//                            cell.imageView = UIImageView(image: image!)
-
                             cell.iconImageView?.image = UIImage.init(data: data!)
-//                            cell.imageView?.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-
-
-                            //cell.setNeedsLayout()
                         }
                     }
-
-
                     cell.backgroundColor = UIColor.clear
-//                    // 算出された幅と高さをセット
-//                    let rect: CGSize = cell.messageLabel.sizeThatFits(CGSize(width: frame.width, height: CGFloat.greatestFiniteMagnitude))
-//                    cell.messageLabel.backgroundColor = UIColor.red
-//                    cell.messageLabel.frame = CGRect(x: 0, y: 10, width: rect.width, height: rect.height)
-                    
                 }
                 .disposed(by: disposeBag)
+
+            
             
             //DBに変更があった場合 リアルタイムにここが実行される
-            let subscription = commonViewMoel.dataMessages
-                .subscribe(onNext: { message in
-                    print("string")
-                    messageTableView.reloadData()
-                    
-                    messageTableView.scrollToRow(at: IndexPath(row: message.count - 1, section: 0), at: UITableViewScrollPosition.bottom, animated: false)
+//            let subscription = commonViewMoel.dataMessages
+//                .subscribe(onNext: { message in
+//                    print("string")
+//                    messageTableView.reloadData()
+//                    messageTableView.scrollToRow(at: IndexPath(row: message.count - 1, section: 0), at: UITableViewScrollPosition.bottom, animated: false)
+//
+//                    ActivityIndicator.stopAnimating()
+//                })
 
+            //DBに変更があった場合 リアルタイムにここが実行される。(基本、上と同じだがこっちはBehaviorRelyを使用)
+            commonViewMoel.dataMessageRx.asDriver()
+                .drive(onNext: { message in
+//                    print(message)
+                    if (message.count > 0) {
+                        messageTableView.reloadData()
+                        
+                        //1ページしか表示していない場合は始めの表示なので一番下までスクロールする
+                        if (message.count == 10) {
+                            //スクロールさせる
+                            messageTableView.scrollToRow(at: IndexPath(row: message.count - 1, section: 0), at: UITableViewScrollPosition.bottom, animated: false)
+                        }
+                    }
                     ActivityIndicator.stopAnimating()
                 })
-
+                .disposed(by: disposeBag)
+            
+            
+            
             messageTableView.estimatedRowHeight = 100
             messageTableView.rowHeight = UITableViewAutomaticDimension
             chatUIView.addSubview(messageTableView!)

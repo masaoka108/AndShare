@@ -30,7 +30,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//
+
 //        //テストデータを作成
 //        var ref: DatabaseReference!
 //        ref = Database.database().reference()
@@ -45,7 +45,7 @@ class LoginViewController: UIViewController {
 //
 //            //登録
 //            let currentData = [
-//                "created": Date().iso8601 ,
+//                "created": Int(Date().iso8601)! ,
 //                "message": "message その\(index)",
 //                "sender": "MtOfUWmJuiUB4V6yCNO08i98cII3"
 //                ] as [String : Any]
