@@ -13,10 +13,10 @@ target 'AndShare' do
   pod 'Firebase/Database'
   pod 'Firebase/RemoteConfig'
   pod 'Firebase/Storage'
-
+  pod 'Firebase/Messaging'
 
   # calendar
-  pod 'Koyomi'
+#  pod 'Koyomi'
   
   pod 'RxSwift',    '~> 4.0'
   pod 'RxCocoa',    '~> 4.0'

@@ -12,7 +12,7 @@ import RxCocoa
 
 
 //********* ViewController
-var RootView:LoginViewController?
+//var RootView:LoginViewController?
 let SignUpView:SignUpViewController = SignUpViewController()
 let MonthlyCalendarView:MonthlyCalendarViewController = MonthlyCalendarViewController()
 

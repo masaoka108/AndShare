@@ -28,6 +28,7 @@
 		CEBB28F42090C0410031CE1C /* common.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBB28F32090C0410031CE1C /* common.swift */; };
 		CEC51722209AF2D700220438 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC51721209AF2D700220438 /* MessageModel.swift */; };
 		CEC51725209AF5E500220438 /* CommonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC51724209AF5E500220438 /* CommonViewModel.swift */; };
+		CEE14BDB20ABD54F0081978A /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE14BDA20ABD54F0081978A /* TestViewController.swift */; };
 		CEF571BD209B3CDE0037AE1F /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF571BC209B3CDE0037AE1F /* MessageTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +82,8 @@
 		CEBB28F32090C0410031CE1C /* common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = common.swift; sourceTree = "<group>"; };
 		CEC51721209AF2D700220438 /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
 		CEC51724209AF5E500220438 /* CommonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonViewModel.swift; sourceTree = "<group>"; };
+		CEE14BD920ABC78E0081978A /* AndShare.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AndShare.entitlements; sourceTree = "<group>"; };
+		CEE14BDA20ABD54F0081978A /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		CEF571BC209B3CDE0037AE1F /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		F9E1AEA7AD211534B472CD45 /* Pods_AndShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AndShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -161,6 +164,7 @@
 		CE6D60E7207CF0F8004AB11E /* AndShare */ = {
 			isa = PBXGroup;
 			children = (
+				CEE14BD920ABC78E0081978A /* AndShare.entitlements */,
 				CEC2329E2093660F0036A7FF /* Classes */,
 				CE6D611A207CF8B4004AB11E /* Common */,
 				CE6D60E8207CF0F8004AB11E /* AppDelegate.swift */,
@@ -257,6 +261,7 @@
 			isa = PBXGroup;
 			children = (
 				CEBB28F02090BBFD0031CE1C /* Common */,
+				CEE14BDA20ABD54F0081978A /* TestViewController.swift */,
 				CE6D60EA207CF0F8004AB11E /* LoginViewController.swift */,
 				CE75E7D5207DB19B008119F1 /* SignUpViewController.swift */,
 				CE75E7D7207DE030008119F1 /* MonthlyCalendarViewController.swift */,
@@ -313,6 +318,7 @@
 				CE6D60F6207CF0FA004AB11E /* Frameworks */,
 				CE6D60F7207CF0FA004AB11E /* Resources */,
 				A9586B69B582D293E37E15B1 /* [CP] Embed Pods Frameworks */,
+				73E251401D79EE66580EDF96 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -332,6 +338,8 @@
 				CE6D6100207CF0FA004AB11E /* Sources */,
 				CE6D6101207CF0FA004AB11E /* Frameworks */,
 				CE6D6102207CF0FA004AB11E /* Resources */,
+				3EA0C42836DD1F8FA14A6905 /* [CP] Embed Pods Frameworks */,
+				CF09406536B727B18618AF13 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -355,6 +363,11 @@
 				TargetAttributes = {
 					CE6D60E4207CF0F8004AB11E = {
 						CreatedOnToolsVersion = 9.3;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					CE6D60F8207CF0FA004AB11E = {
 						CreatedOnToolsVersion = 9.3;
@@ -432,6 +445,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		3EA0C42836DD1F8FA14A6905 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AndShareUITests/Pods-AndShareUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		449A675DA58BC5FE0EA96D70 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -480,7 +508,6 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleAPIClientForREST/GoogleAPIClientForREST.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
-				"${BUILT_PRODUCTS_DIR}/Koyomi/Koyomi.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
@@ -496,7 +523,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleAPIClientForREST.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Koyomi.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
@@ -528,6 +554,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		73E251401D79EE66580EDF96 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AndShareTests/Pods-AndShareTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		A9586B69B582D293E37E15B1 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -550,6 +591,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AndShareTests/Pods-AndShareTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		CF09406536B727B18618AF13 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AndShareUITests/Pods-AndShareUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -567,6 +623,7 @@
 				CEF571BD209B3CDE0037AE1F /* MessageTableViewCell.swift in Sources */,
 				CE6D6119207CF89F004AB11E /* Common.swift in Sources */,
 				CE75E7D6207DB19B008119F1 /* SignUpViewController.swift in Sources */,
+				CEE14BDB20ABD54F0081978A /* TestViewController.swift in Sources */,
 				CEC51725209AF5E500220438 /* CommonViewModel.swift in Sources */,
 				CE6D60E9207CF0F8004AB11E /* AppDelegate.swift in Sources */,
 				CE24969020940B3F00167CD8 /* MonthlyCalendarViewModel.swift in Sources */,
@@ -736,6 +793,7 @@
 			baseConfigurationReference = 016B499668CF264B35D55EFF /* Pods-AndShare.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = AndShare/AndShare.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z8Z6GJBUFD;
 				INFOPLIST_FILE = AndShare/Info.plist;
@@ -752,6 +810,7 @@
 			baseConfigurationReference = 2C36D1483CDBEF4780438F49 /* Pods-AndShare.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = AndShare/AndShare.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z8Z6GJBUFD;
 				INFOPLIST_FILE = AndShare/Info.plist;

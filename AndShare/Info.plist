@@ -54,5 +54,7 @@
 	</array>
 	<key>NSCalendarsUsageDescription</key>
 	<string>カレンダーAppを同期しますか？</string>
+	<key>FirebaseMessagingAutoInitEnabled</key>
+	<false/>
 </dict>
 </plist>
